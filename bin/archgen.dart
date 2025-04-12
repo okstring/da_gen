@@ -84,7 +84,7 @@ void main(List<String> arguments) {
 
 /// 사용법을 출력합니다.
 void _printUsage(ArgParser argParser) {
-  print('사용법: arcgen <모델명> [옵션]');
+  print('사용법: archgen <모델명> [옵션]');
   print('옵션:');
   print(argParser.usage);
 }

@@ -1,5 +1,5 @@
 name: arch_gen
-description: Clean Architecture 구조 중 Data 부분들의 파일들을 자동 생성하는 Dart CLI 도구입니다.
+description: This is a Dart CLI tool that automatically generates files for the Data layer in a Clean Architecture structure.
 version: 0.1.0
 homepage: https://github.com/okstring/arch_gen
 repository: https://github.com/okstring/arch_gen
@@ -8,12 +8,12 @@ environment:
   sdk: '>=3.0.0 <4.0.0'
 
 dependencies:
-  args: ^2.4.0
-  path: ^1.8.3  # path 패키지 추가
+  args: ^2.7.0
+  path: ^1.9.1
 
 dev_dependencies:
   lints: ^2.1.0
   test: ^1.24.0
 
 executables:
-  arcgen: arcgen
+  archgen: archgen
