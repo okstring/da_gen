@@ -1,5 +1,3 @@
-import 'package:arch_gen/arch_gen.dart';
-
 // This tool is primarily executed through bin/arcgen.dart
 // Usage example: dart run bin/arcgen.dart User --freezed --json
 void main() {
