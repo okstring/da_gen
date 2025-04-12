@@ -3,7 +3,7 @@ String generateDtoTemplate(
     String modelName,
     bool useJson,
     ) {
-  final String snakeCaseModelName = camelToSnake(modelName);
+  final String snakeCaseModelName = modelName.camelToSnake();
 
   if (useJson) {
     return '''

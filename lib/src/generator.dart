@@ -17,9 +17,8 @@ void generateFiles({
   required bool useJson,
 }) {
   // 모델명 변환
-  final String capitalizedModelName = capitalize(modelName);
-  final String lowerModelName = uncapitalize(modelName);
-  final String snakeCaseModelName = camelToSnake(modelName); // snake_case로 변환
+  final String capitalizedModelName = modelName.uppercaseFirst();
+  final String snakeCaseModelName = modelName.camelToSnake();
 
   // 프로젝트 패키지명 추출
   final String packageName = _getPackageName();

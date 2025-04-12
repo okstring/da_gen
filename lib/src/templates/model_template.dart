@@ -3,13 +3,13 @@ String generateModelTemplate(
     String modelName,
     bool useFreezed,
     ) {
-  final String snakeCaseModelName = camelToSnake(modelName);
+  final String snakeCaseModelName = modelName.camelToSnake();
 
   if (useFreezed) {
     return '''
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part '${snakeCaseModelName}.freezed.dart';
+part '$snakeCaseModelName.freezed.dart';
 
 @freezed
 abstract class $modelName with _\$modelName {
