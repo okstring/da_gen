@@ -1,4 +1,6 @@
-import 'package:arch_gen/src/utils/string_utils.dart';/// Model 템플릿을 생성합니다.
+import 'package:arch_gen/src/utils/string_utils.dart';
+
+/// Model 템플릿을 생성합니다.
 String generateModelTemplate(
     String modelName,
     bool useFreezed,

@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:args/args.dart';
 import 'package:arch_gen/arch_gen.dart';
 
+/// CLI 도구의 메인 함수입니다.
 void main(List<String> arguments) {
   // 인수 파서 설정
   final ArgParser argParser = ArgParser()
@@ -81,6 +82,7 @@ void main(List<String> arguments) {
   }
 }
 
+/// 사용법을 출력합니다.
 void _printUsage(ArgParser argParser) {
   print('사용법: arcgen <모델명> [옵션]');
   print('옵션:');

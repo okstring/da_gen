@@ -15,8 +15,8 @@ extension StringExtensions on String {
     return this[0].toLowerCase() + substring(1);
   }
 
-  /// CamelCase를 snake_case로 변환합니다.
-  /// 예: "UserDetail" -> "user_detail"
+  /// PascalCase나 camelCase를 snake_case로 변환합니다.
+  /// 예: "UserDetail" -> "user_detail", "userDetail" -> "user_detail"
   String camelToSnake() {
     if (isEmpty) {
       return this;

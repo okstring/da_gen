@@ -1,4 +1,6 @@
-import 'package:arch_gen/src/utils/string_utils.dart';/// DTO 템플릿을 생성합니다.
+import 'package:arch_gen/src/utils/string_utils.dart';
+
+/// DTO 템플릿을 생성합니다.
 String generateDtoTemplate(
     String modelName,
     bool useJson,

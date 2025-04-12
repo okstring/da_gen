@@ -11,7 +11,7 @@ import 'package:arch_gen/src/utils/string_utils.dart';
 /// 모델 관련 파일들을 생성합니다.
 void generateFiles({
   required String modelName,
-  required String baseDir,
+  String baseDir = 'lib', // 기본값 설정
   required bool isFlat,
   required bool useFreezed,
   required bool useJson,
@@ -24,24 +24,24 @@ void generateFiles({
   final String packageName = _getPackageName();
 
   // 항상 프로젝트 루트의 lib을 기준으로 경로 설정
-  final String normalizedBaseDir = 'lib';
+  final String rootDir = 'lib';
 
   // 파일 생성 경로 설정
   final String dataSourcePath = isFlat
-      ? normalizedBaseDir
-      : '$normalizedBaseDir/data/data_source';
+      ? rootDir
+      : '$rootDir/data/data_source';
   final String dtoPath = isFlat
-      ? normalizedBaseDir
-      : '$normalizedBaseDir/data/dto';
+      ? rootDir
+      : '$rootDir/data/dto';
   final String mapperPath = isFlat
-      ? normalizedBaseDir
-      : '$normalizedBaseDir/data/mapper';
+      ? rootDir
+      : '$rootDir/data/mapper';
   final String modelPath = isFlat
-      ? normalizedBaseDir
-      : '$normalizedBaseDir/data/model';
+      ? rootDir
+      : '$rootDir/data/model';
   final String repositoryPath = isFlat
-      ? normalizedBaseDir
-      : '$normalizedBaseDir/data/repository';
+      ? rootDir
+      : '$rootDir/data/repository';
 
   // 디렉토리 생성
   _createDirectoryIfNotExists(dataSourcePath);
@@ -59,14 +59,14 @@ void generateFiles({
   final String repositoryFile = '$repositoryPath/${snakeCaseModelName}_repository.dart';
   final String repositoryImplFile = '$repositoryPath/${snakeCaseModelName}_repository_impl.dart';
 
-  // 임포트 경로 설정
+  // 임포트 경로 설정 - rootDir 사용하여 통일
   String getImportPath(String filePath) {
     if (isFlat) {
       // flat 구조일 때는 파일명만 추출하여 import
       final filename = filePath.split('/').last;
-      return '$packageName/$baseDir/$filename';
+      return '$packageName/$rootDir/$filename';
     }
-    return '$packageName/${filePath.replaceAll('$baseDir/', '')}';
+    return '$packageName/${filePath.replaceAll('$rootDir/', '')}';
   }
 
   // 템플릿에 필요한 변수 설정
