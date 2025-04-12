@@ -33,25 +33,34 @@ void generateFiles({
   // 프로젝트 패키지명 추출
   final String packageName = _getPackageName(projectRoot);
 
-  // 항상 프로젝트 루트의 lib을 기준으로 경로 설정
-  final String rootDir = path.join(projectRoot, 'lib');
-
   // 파일 생성 경로 설정
+  String baseDirectory;
+  if (isFlat) {
+    // flat 옵션이 활성화된 경우 현재 디렉토리를 기준으로 함
+    baseDirectory = Directory.current.path;
+  } else {
+    // flat 옵션이 비활성화된 경우 프로젝트 루트의 lib 디렉토리를 기준으로 함
+    baseDirectory = path.join(projectRoot, 'lib');
+  }
+
+  print('파일 생성 기준 디렉토리: $baseDirectory');
+
+  // 각 파일 타입별 경로 설정
   final String dataSourcePath = isFlat
-      ? rootDir
-      : path.join(rootDir, 'data', 'data_source');
+      ? baseDirectory
+      : path.join(baseDirectory, 'data', 'data_source');
   final String dtoPath = isFlat
-      ? rootDir
-      : path.join(rootDir, 'data', 'dto');
+      ? baseDirectory
+      : path.join(baseDirectory, 'data', 'dto');
   final String mapperPath = isFlat
-      ? rootDir
-      : path.join(rootDir, 'data', 'mapper');
+      ? baseDirectory
+      : path.join(baseDirectory, 'data', 'mapper');
   final String modelPath = isFlat
-      ? rootDir
-      : path.join(rootDir, 'data', 'model');
+      ? baseDirectory
+      : path.join(baseDirectory, 'data', 'model');
   final String repositoryPath = isFlat
-      ? rootDir
-      : path.join(rootDir, 'data', 'repository');
+      ? baseDirectory
+      : path.join(baseDirectory, 'data', 'repository');
 
   // 디렉토리 생성
   _createDirectoryIfNotExists(dataSourcePath);
@@ -69,27 +78,26 @@ void generateFiles({
   final String repositoryFile = path.join(repositoryPath, '${snakeCaseModelName}_repository.dart');
   final String repositoryImplFile = path.join(repositoryPath, '${snakeCaseModelName}_repository_impl.dart');
 
-  // 임포트 경로 설정 (상대 경로가 아닌 패키지 경로 사용)
-  String getImportPath(String filePath) {
-    // 프로젝트 루트 기준 상대 경로로 변환
-    String relativePath = path.relative(filePath, from: projectRoot);
-
-    // 'lib/' 부분 제거 (패키지 임포트에서는 lib이 기본 경로)
-    if (relativePath.startsWith('lib/')) {
-      relativePath = relativePath.substring(4);
-    } else if (relativePath.startsWith('lib\\')) {
-      relativePath = relativePath.substring(4);
+  // 임포트 경로 생성에 필요한 함수
+  String calculateImportPath(String filePath) {
+    if (isFlat) {
+      // flat 옵션이 활성화된 경우: 현재 디렉토리 기준 상대 경로 사용
+      // 예: './user_detail.dart' 또는 단순히 'user_detail.dart'
+      String fileNameOnly = path.basename(filePath);
+      return fileNameOnly;
+    } else {
+      // flat 옵션이 비활성화된 경우: 프로젝트 루트 기준 패키지 임포트 경로 사용
+      String relativePath = path.relative(filePath, from: path.join(projectRoot, 'lib'));
+      return '$packageName/$relativePath';
     }
-
-    return '$packageName/$relativePath';
   }
 
-  // 템플릿에 필요한 변수 설정
+  // 템플릿에 필요한 임포트 경로 설정
   final Map<String, String> imports = {
-    'dataSource': getImportPath(dataSourceFile),
-    'dto': getImportPath(dtoFile),
-    'model': getImportPath(modelFile),
-    'repository': getImportPath(repositoryFile),
+    'dataSource': calculateImportPath(dataSourceFile),
+    'dto': calculateImportPath(dtoFile),
+    'model': calculateImportPath(modelFile),
+    'repository': calculateImportPath(repositoryFile),
   };
 
   // 파일 생성
