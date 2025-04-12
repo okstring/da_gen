@@ -1,61 +1,78 @@
-## 주요 기능
+# arch_gen
 
-1. **Clean Architecture 구조 자동 생성**
-    - DataSource, Repository, Model, DTO, Mapper 파일들을 자동으로 생성
+Generate folders and files for the Data layer of Clean Architecture in Flutter/Dart applications with a single command.
 
-2. **CamelCase → snake_case 변환**
-    - 모델명이 CamelCase일 경우(예: UserDetail) 파일명은 자동으로 snake_case(예: user_detail)로 변환됨
+## Features
 
-3. **항상 프로젝트 루트 기준 생성**
-    - 현재 디렉토리와 관계없이 항상 프로젝트 루트의 lib 디렉토리 내에 파일 생성
+1. **Automatic Data Layer Generation for Clean Architecture**
+   - Creates DataSource, Repository, Model, DTO, and Mapper files
+   - Establishes correct dependency relationships between components
+2. **CamelCase → snake_case Conversion**
+   - When model names are in CamelCase (e.g., UserDetail), filenames are automatically converted to snake_case (e.g., user_detail)
+3. **Optional Support for freezed and json_serializable**
+   - To utilize these features, you need to add the following package dependencies to your project:
+     - freezed
+     - freezed_annotation
+     - json_serializable
+     - json_annotation
+     - build_runner
+   - Example of adding dependencies:
 
-4. **freezed 및 json_serializable 지원**
-    - 옵션을 통해 freezed 모델과 json_serializable DTO 생성 가능# arch_gen
+```yaml
+dependencies:
+  freezed_annotation: ^2.4.1
+  json_annotation: ^4.8.1
 
-명령어 하나로 Clean Architecture 구조 중 Data 부분들의 파일들을 자동 생성하는 Dart CLI 도구입니다. 최소한의 의존성(args 패키지만)으로 사용법을 매우 간단하게 구현합니다.
+dev_dependencies:
+  build_runner: ^2.4.7
+  freezed: ^2.4.6
+  json_serializable: ^6.7.1
+```
 
-## 설치
+- Code generation command: `dart run build_runner build`
+
+## Installation
 
 ```bash
 dart pub global activate arch_gen
 ```
 
-또는 `pubspec.yaml`에 다음을 추가하세요:
+Or add this to your `pubspec.yaml`:
 
 ```yaml
 dev_dependencies:
   arch_gen: ^0.1.0
 ```
 
-## 사용법
+## Usage
 
 ```bash
-arcgen <모델명>              # 필수: 모델 이름 (위치 인수)
-      -d, --dir <디렉토리>   # 선택: 기본 디렉토리 경로 (현재 버전에서는 항상 프로젝트 루트의 lib 폴더 사용)
-      -f, --flat             # 선택: 모든 파일을 한 폴더에 생성
-      --freezed, -z          # 선택: freezed 사용
-      --json, -j             # 선택: json_serializable 사용
-      -h, --help             # 도움말 표시
+arcgen <ModelName>           # Required: Model name (positional argument)
+      -d, --dir <directory>  # Optional: Base directory path (currently always uses lib folder in project root)
+      -f, --flat             # Optional: Generate all files in a single folder
+      --freezed, -z          # Optional: Use freezed for models
+      --json, -j             # Optional: Use json_serializable for DTOs
+      -h, --help             # Display help
 ```
 
-### 예시
+## Examples
 
-#### 기본 생성
+### Basic Generation
 
 ```bash
 arcgen User
 ```
 
-다음 파일 구조와 코드를 생성합니다:
+This creates the following file structure and code:
 
-```
+```dart
 // lib/data/data_source/user_data_source.dart
 abstract interface class UserDataSource {
 
 }
 
 // lib/data/data_source/user_data_source_impl.dart
-import 'package:your_app/data/data_source/user_data_source.dart';
+import './user_data_source.dart';
 
 class UserDataSourceImpl implements UserDataSource {
   
@@ -67,7 +84,8 @@ class UserDto {
 }
 
 // lib/data/mapper/user_mapper.dart
-import 'package:your_app/data/model/user.dart';
+import '../model/user.dart';
+import './user_dto.dart';
 
 extension UserMapper on UserDto {
   User toUser() {
@@ -86,8 +104,8 @@ abstract interface class UserRepository {
 }
 
 // lib/data/repository/user_repository_impl.dart
-import 'package:your_app/data/data_source/user_data_source.dart';
-import 'package:your_app/data/repository/user_repository.dart';
+import './user_repository.dart';
+import '../data_source/user_data_source.dart';
 
 class UserRepositoryImpl implements UserRepository {
   final UserDataSource _userDataSource;
@@ -98,26 +116,62 @@ class UserRepositoryImpl implements UserRepository {
 }
 ```
 
-#### Freezed 사용
+### Using Freezed
 
 ```bash
 arcgen User --freezed
 ```
 
-Model 클래스에 freezed 템플릿을 적용합니다.
+Applies the freezed template to the Model class:
 
-#### JSON Serializable 사용
+```dart
+// lib/data/model/user.dart
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'user.freezed.dart';
+
+@freezed
+abstract class User with _$User {
+  const factory User({
+    
+  }) = _User;
+}
+```
+
+### Using JSON Serializable
 
 ```bash
 arcgen User --json
 ```
 
-DTO 클래스에 json_serializable 템플릿을 적용합니다.
+Applies json_serializable template to the DTO class:
 
-## 기여하기
+```dart
+// lib/data/dto/user_dto.dart
+import 'package:json_annotation/json_annotation.dart';
 
-이슈와 풀 리퀘스트를 환영합니다.
+part 'user_dto.g.dart';
 
-## 라이센스
+@JsonSerializable(explicitToJson: true)
+class UserDto {
+  
+  
+  UserDto();
+  
+  factory UserDto.fromJson(Map<String, dynamic> json) => _$UserDtoFromJson(json);
+  
+  Map<String, dynamic> toJson() => _$UserDtoToJson(this);
+}
+```
 
-MIT
+### Flat Structure
+
+```bash
+arcgen User --flat
+```
+
+Creates all files in the current directory instead of nested folders.
+
+## License
+
+This project is distributed under the MIT License. See the LICENSE file for more details.
