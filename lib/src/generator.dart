@@ -16,30 +16,33 @@ void generateFiles({
   required bool useFreezed,
   required bool useJson,
 }) {
-  // 모델명 변환 (첫 글자 대문자)
+  // 모델명 변환
   final String capitalizedModelName = capitalize(modelName);
-
-  // 모델명 변환 (첫 글자 소문자)
   final String lowerModelName = uncapitalize(modelName);
+  final String snakeCaseModelName = camelToSnake(modelName); // snake_case로 변환
 
-  // 프로젝트 패키지명 추출 (현재 디렉토리 기준)
+  // 프로젝트 패키지명 추출
   final String packageName = _getPackageName();
 
-  // baseDir이 상대 경로인지 절대 경로인지 확인
   // 항상 프로젝트 루트의 lib을 기준으로 경로 설정
-  final String normalizedBaseDir = baseDir.startsWith('/') ? baseDir : 'lib';
+  final String normalizedBaseDir = 'lib';
 
   // 파일 생성 경로 설정
-  final String dataSourcePath =
-      isFlat ? normalizedBaseDir : '$normalizedBaseDir/data/data_source';
-  final String dtoPath =
-      isFlat ? normalizedBaseDir : '$normalizedBaseDir/data/dto';
-  final String mapperPath =
-      isFlat ? normalizedBaseDir : '$normalizedBaseDir/data/mapper';
-  final String modelPath =
-      isFlat ? normalizedBaseDir : '$normalizedBaseDir/data/model';
-  final String repositoryPath =
-      isFlat ? normalizedBaseDir : '$normalizedBaseDir/data/repository';
+  final String dataSourcePath = isFlat
+      ? normalizedBaseDir
+      : '$normalizedBaseDir/data/data_source';
+  final String dtoPath = isFlat
+      ? normalizedBaseDir
+      : '$normalizedBaseDir/data/dto';
+  final String mapperPath = isFlat
+      ? normalizedBaseDir
+      : '$normalizedBaseDir/data/mapper';
+  final String modelPath = isFlat
+      ? normalizedBaseDir
+      : '$normalizedBaseDir/data/model';
+  final String repositoryPath = isFlat
+      ? normalizedBaseDir
+      : '$normalizedBaseDir/data/repository';
 
   // 디렉토리 생성
   _createDirectoryIfNotExists(dataSourcePath);
@@ -48,18 +51,14 @@ void generateFiles({
   _createDirectoryIfNotExists(modelPath);
   _createDirectoryIfNotExists(repositoryPath);
 
-  // 파일명 생성
-  final String dataSourceFile =
-      '$dataSourcePath/${lowerModelName}_data_source.dart';
-  final String dataSourceImplFile =
-      '$dataSourcePath/${lowerModelName}_data_source_impl.dart';
-  final String dtoFile = '$dtoPath/${lowerModelName}_dto.dart';
-  final String mapperFile = '$mapperPath/${lowerModelName}_mapper.dart';
-  final String modelFile = '$modelPath/$lowerModelName.dart';
-  final String repositoryFile =
-      '$repositoryPath/${lowerModelName}_repository.dart';
-  final String repositoryImplFile =
-      '$repositoryPath/${lowerModelName}_repository_impl.dart';
+  // 파일명 생성 (snake_case 사용)
+  final String dataSourceFile = '$dataSourcePath/${snakeCaseModelName}_data_source.dart';
+  final String dataSourceImplFile = '$dataSourcePath/${snakeCaseModelName}_data_source_impl.dart';
+  final String dtoFile = '$dtoPath/${snakeCaseModelName}_dto.dart';
+  final String mapperFile = '$mapperPath/${snakeCaseModelName}_mapper.dart';
+  final String modelFile = '$modelPath/$snakeCaseModelName.dart';
+  final String repositoryFile = '$repositoryPath/${snakeCaseModelName}_repository.dart';
+  final String repositoryImplFile = '$repositoryPath/${snakeCaseModelName}_repository_impl.dart';
 
   // 임포트 경로 설정
   String getImportPath(String filePath) {

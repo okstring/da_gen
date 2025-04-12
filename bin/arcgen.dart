@@ -8,7 +8,7 @@ void main(List<String> arguments) {
     ..addOption(
       'dir',
       abbr: 'd',
-      help: '생성할 파일들의 기본 디렉토리 경로 (항상 프로젝트 루트의 lib 폴더 기준)',
+      help: '기본 디렉토리 경로 (현재 버전에서는 항상 프로젝트 루트의 lib 폴더 사용)',
       defaultsTo: 'lib',
     )
     ..addFlag(

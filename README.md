@@ -1,4 +1,16 @@
-# arch_gen
+## 주요 기능
+
+1. **Clean Architecture 구조 자동 생성**
+    - DataSource, Repository, Model, DTO, Mapper 파일들을 자동으로 생성
+
+2. **CamelCase → snake_case 변환**
+    - 모델명이 CamelCase일 경우(예: UserDetail) 파일명은 자동으로 snake_case(예: user_detail)로 변환됨
+
+3. **항상 프로젝트 루트 기준 생성**
+    - 현재 디렉토리와 관계없이 항상 프로젝트 루트의 lib 디렉토리 내에 파일 생성
+
+4. **freezed 및 json_serializable 지원**
+    - 옵션을 통해 freezed 모델과 json_serializable DTO 생성 가능# arch_gen
 
 명령어 하나로 Clean Architecture 구조 중 Data 부분들의 파일들을 자동 생성하는 Dart CLI 도구입니다. 최소한의 의존성(args 패키지만)으로 사용법을 매우 간단하게 구현합니다.
 
@@ -19,7 +31,7 @@ dev_dependencies:
 
 ```bash
 arcgen <모델명>              # 필수: 모델 이름 (위치 인수)
-      -d, --dir <디렉토리>   # 선택: 생성할 파일들의 기본 경로 (항상 프로젝트 루트의 lib 폴더 기준)
+      -d, --dir <디렉토리>   # 선택: 기본 디렉토리 경로 (현재 버전에서는 항상 프로젝트 루트의 lib 폴더 사용)
       -f, --flat             # 선택: 모든 파일을 한 폴더에 생성
       --freezed, -z          # 선택: freezed 사용
       --json, -j             # 선택: json_serializable 사용
