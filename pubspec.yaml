@@ -9,6 +9,7 @@ environment:
 
 dependencies:
   args: ^2.4.0
+  path: ^1.8.3  # path 패키지 추가
 
 dev_dependencies:
   lints: ^2.1.0
