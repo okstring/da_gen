@@ -4,7 +4,7 @@ String generateDataSourceImplTemplate(
     String dataSourceImport,
     ) {
   return '''
-import 'package:$dataSourceImport';
+import '$dataSourceImport';
 
 class ${modelName}DataSourceImpl implements ${modelName}DataSource {
   

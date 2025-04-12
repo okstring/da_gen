@@ -5,8 +5,8 @@ String generateMapperTemplate(
     String dtoImport,
     ) {
   return '''
-import 'package:$modelImport';
-import 'package:$dtoImport';
+import '$modelImport';
+import '$dtoImport';
 
 extension ${modelName}Mapper on ${modelName}Dto {
   ${modelName} to${modelName}() {

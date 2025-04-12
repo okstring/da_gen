@@ -7,8 +7,8 @@ String generateRepositoryImplTemplate(
   final String lowerModelName = modelName[0].toLowerCase() + modelName.substring(1);
 
   return '''
-import 'package:$repositoryImport';
-import 'package:$dataSourceImport';
+import '$repositoryImport';
+import '$dataSourceImport';
 
 class ${modelName}RepositoryImpl implements ${modelName}Repository {
   final ${modelName}DataSource _${lowerModelName}DataSource;

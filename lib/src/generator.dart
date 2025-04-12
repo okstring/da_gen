@@ -78,34 +78,16 @@ void generateFiles({
   final String repositoryFile = path.join(repositoryPath, '${snakeCaseModelName}_repository.dart');
   final String repositoryImplFile = path.join(repositoryPath, '${snakeCaseModelName}_repository_impl.dart');
 
-  // 임포트 경로 생성에 필요한 함수
-  String calculateImportPath(String filePath) {
-    // 모든 경우에 상대 경로 사용
-    String targetFile = path.basename(filePath);
-    String targetDir = path.dirname(filePath);
+  // 임포트 경로 생성에 필요한 함수 - 항상 상대 경로 사용
+  String calculateRelativeImportPath(String targetFile, String fromFile) {
+    // 대상 파일의 디렉토리와 현재 파일의 디렉토리
+    String targetDir = path.dirname(targetFile);
+    String fromDir = path.dirname(fromFile);
 
-    // 현재 계산 중인 파일이 어떤 파일인지 확인
-    String currentDir;
-    if (filePath.contains('data_source_impl')) {
-      currentDir = dataSourcePath;
-    } else if (filePath.contains('repository_impl')) {
-      currentDir = repositoryPath;
-    } else if (filePath.contains('mapper')) {
-      currentDir = mapperPath;
-    } else {
-      // 기타 파일의 경우
-      currentDir = path.dirname(filePath);
-    }
+    // 상대 경로 계산
+    String relativePath = path.relative(targetFile, from: fromDir);
 
-    // 대상 파일로의 상대 경로 계산
-    String relativePath = path.relative(filePath, from: currentDir);
-
-    // 같은 디렉토리에 있는 파일은 그냥 파일명만 반환
-    if (path.dirname(relativePath) == '.') {
-      return targetFile;
-    }
-
-    // 다른 디렉토리에 있는 파일은 상대 경로 반환 (필요한 경우 './'를 추가)
+    // 시작이 . 또는 .. 이 아니면 ./ 추가
     if (!relativePath.startsWith('.')) {
       relativePath = './$relativePath';
     }
@@ -113,13 +95,41 @@ void generateFiles({
     return relativePath;
   }
 
-  // 템플릿에 필요한 임포트 경로 설정
-  final Map<String, String> imports = {
-    'dataSource': calculateImportPath(dataSourceFile),
-    'dto': calculateImportPath(dtoFile),
-    'model': calculateImportPath(modelFile),
-    'repository': calculateImportPath(repositoryFile),
-  };
+  // 타겟 파일들의 임포트 경로 계산
+  Map<String, String> calculateImports() {
+    Map<String, String> imports = {};
+
+    // DataSourceImpl -> DataSource 임포트
+    imports['dataSourceToImpl'] = calculateRelativeImportPath(
+        dataSourceFile,
+        dataSourceImplFile
+    );
+
+    // RepositoryImpl -> Repository, DataSource 임포트
+    imports['repositoryToImpl'] = calculateRelativeImportPath(
+        repositoryFile,
+        repositoryImplFile
+    );
+    imports['dataSourceToRepoImpl'] = calculateRelativeImportPath(
+        dataSourceFile,
+        repositoryImplFile
+    );
+
+    // Mapper -> Model, DTO 임포트
+    imports['modelToMapper'] = calculateRelativeImportPath(
+        modelFile,
+        mapperFile
+    );
+    imports['dtoToMapper'] = calculateRelativeImportPath(
+        dtoFile,
+        mapperFile
+    );
+
+    return imports;
+  }
+
+  // 임포트 경로 계산
+  final Map<String, String> imports = calculateImports();
 
   // 파일 생성
   _createFile(
@@ -131,7 +141,7 @@ void generateFiles({
     dataSourceImplFile,
     generateDataSourceImplTemplate(
       capitalizedModelName,
-      imports['dataSource']!,
+      imports['dataSourceToImpl']!,
     ),
   );
 
@@ -147,8 +157,8 @@ void generateFiles({
     mapperFile,
     generateMapperTemplate(
       capitalizedModelName,
-      imports['model']!,
-      imports['dto']!,
+      imports['modelToMapper']!,
+      imports['dtoToMapper']!,
     ),
   );
 
@@ -169,8 +179,8 @@ void generateFiles({
     repositoryImplFile,
     generateRepositoryImplTemplate(
       capitalizedModelName,
-      imports['repository']!,
-      imports['dataSource']!,
+      imports['repositoryToImpl']!,
+      imports['dataSourceToRepoImpl']!,
     ),
   );
 }
