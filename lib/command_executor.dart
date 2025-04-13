@@ -31,15 +31,13 @@ class CommandExecutor {
 
       // 옵션 추출
       final String modelName = rest.first;
-      final String dir = args['dir'];
       final bool isFlat = args['flat'];
       final bool useFreezed = args['freezed'];
       final bool useJson = args['json'];
 
-      // 파일 생성 실행
-      _generateFiles(
+      // 모델 관련 파일들을 생성합니다.
+      _fileGenerator.generateFiles(
         modelName: modelName,
-        baseDir: dir,
         isFlat: isFlat,
         useFreezed: useFreezed,
         useJson: useJson,
@@ -80,22 +78,5 @@ class CommandExecutor {
     print('사용법: archgen <모델명> [옵션]');
     print('옵션:');
     print(argParser.usage);
-  }
-
-  /// 모델 관련 파일들을 생성합니다.
-  void _generateFiles({
-    required String modelName,
-    String baseDir = 'lib',
-    required bool isFlat,
-    required bool useFreezed,
-    required bool useJson,
-  }) {
-    _fileGenerator.generateFiles(
-      modelName: modelName,
-      baseDir: baseDir,
-      isFlat: isFlat,
-      useFreezed: useFreezed,
-      useJson: useJson,
-    );
   }
 }

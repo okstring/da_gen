@@ -1,11 +1,11 @@
 import 'package:arch_gen/src/utils/string_utils.dart';
 
 /// Model 템플릿을 생성합니다.
-String generateModelTemplate(
-    String modelName,
-    bool useFreezed,
-    ) {
-  final String snakeCaseModelName = modelName.camelToSnake();
+String generateModelTemplate({
+  required String modelName,
+  required bool useFreezed,
+}) {
+  final String snakeCaseModelName = modelName.pascalOrCamelToSnake();
 
   if (useFreezed) {
     return '''

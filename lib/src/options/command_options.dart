@@ -1,5 +1,5 @@
 
-import 'package:arch_gen/src/options/command_option.dart';
+import 'package:arch_gen/src/options/types/command_option.dart';
 import 'package:args/args.dart';
 
 /// 명령어 옵션 관리자 클래스

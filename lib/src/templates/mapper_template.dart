@@ -1,16 +1,14 @@
 /// Mapper 템플릿을 생성합니다.
-String generateMapperTemplate(
-    String modelName,
-    String modelImport,
-    String dtoImport,
-    ) {
+String generateMapperTemplate({
+  required String modelName,
+  required String importString,
+}) {
   return '''
-import '$modelImport';
-import '$dtoImport';
+$importString
 
 extension ${modelName}Mapper on ${modelName}Dto {
-  ${modelName} to${modelName}() {
-    return ${modelName}();
+  $modelName to$modelName() {
+    return $modelName();
   }
 }
 ''';

@@ -1,11 +1,11 @@
 import 'package:arch_gen/src/utils/string_utils.dart';
 
 /// DTO 템플릿을 생성합니다.
-String generateDtoTemplate(
-    String modelName,
-    bool useJson,
-    ) {
-  final String snakeCaseModelName = modelName.camelToSnake();
+String generateDtoTemplate({
+  required String modelName,
+  required bool useJson,
+}) {
+  final String snakeCaseModelName = modelName.pascalOrCamelToSnake();
 
   if (useJson) {
     return '''

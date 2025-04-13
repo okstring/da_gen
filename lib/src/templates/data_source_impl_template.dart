@@ -1,10 +1,10 @@
 /// DataSource 구현 템플릿을 생성합니다.
-String generateDataSourceImplTemplate(
-    String modelName,
-    String dataSourceImport,
-    ) {
+String generateDataSourceImplTemplate({
+  required String modelName,
+  required String importString,
+}) {
   return '''
-import '$dataSourceImport';
+$importString
 
 class ${modelName}DataSourceImpl implements ${modelName}DataSource {
   

@@ -17,7 +17,7 @@ extension StringExtensions on String {
 
   /// PascalCase나 camelCase를 snake_case로 변환합니다.
   /// 예: "UserDetail" -> "user_detail", "userDetail" -> "user_detail"
-  String camelToSnake() {
+  String pascalOrCamelToSnake() {
     if (isEmpty) {
       return this;
     }
