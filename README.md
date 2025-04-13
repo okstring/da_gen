@@ -1,77 +1,77 @@
 # arch_gen
 
-단일 명령어로 Flutter/Dart 애플리케이션의 Clean Architecture 중 Data 영역의 폴더, 파일들을 생성합니다.
+Generate folders and files for the Data layer of Clean Architecture in Flutter/Dart applications with a single command.
 
-## 주요 기능
+## Key Features
 
-1. **Clean Architecture 구조 중 Data 영역 자동 생성**
+1. **Automatic Generation of Data Layer in Clean Architecture**
 
-    - DataSource, Repository, Model, DTO, Mapper 파일들을 생성
-    - 컴포넌트 간 올바른 의존성 관계 설정
+   - Creates DataSource, Repository, Model, DTO, and Mapper files
+   - Sets up proper dependency relationships between components
 
-2. **freezed 및 json_serializable 선택적 지원**
+2. **Optional Support for freezed and json_serializable**
 
-    * 이 기능들을 활용하려면 프로젝트에 다음 패키지들의 의존성을 추가해야 합니다:
+   - To use these features, you need to add the following package dependencies to your project:
 
-        * [freezed](https://pub.dev/packages/freezed)
-        * [freezed_annotation](https://pub.dev/packages/freezed_annotation)
-        * [json_serializable](https://pub.dev/packages/json_serializable)
-        * [json_annotation](https://pub.dev/packages/json_annotation)
-        * [build_runner](https://pub.dev/packages/build_runner):
+     - [freezed](https://pub.dev/packages/freezed)
+     - [freezed_annotation](https://pub.dev/packages/freezed_annotation)
+     - [json_serializable](https://pub.dev/packages/json_serializable)
+     - [json_annotation](https://pub.dev/packages/json_annotation)
+     - [build_runner](https://pub.dev/packages/build_runner)
 
-    * 의존성 추가 예시:
+   - Example of adding dependencies:
 
-      ```yaml
-      dependencies:
-        freezed_annotation: ^2.4.1
-        json_annotation: ^4.8.1
-      
-      dev_dependencies:
-        build_runner: ^2.4.7
-        freezed: ^2.4.6
-        json_serializable: ^6.7.1
-      ```
+     ```yaml
+     dependencies:
+       freezed_annotation: ^2.4.1
+       json_annotation: ^4.8.1
+     
+     dev_dependencies:
+       build_runner: ^2.4.7
+       freezed: ^2.4.6
+       json_serializable: ^6.7.1
+     ```
 
-    * 코드 생성 명령어: `dart run build_runner build`
+   - Code generation command: `dart run build_runner build`
 
-    * 자세한 사용법은 각 라이브러리의 공식 문서를 참조하세요
+   - For detailed usage, refer to the official documentation of each library:
 
-        - freezed: https://pub.dev/packages/freezed
-        - json_serializable: https://pub.dev/packages/json_serializable
+     - freezed: https://pub.dev/packages/freezed
+     - json_serializable: https://pub.dev/packages/json_serializable
 
-## 설치
+## Installation
 
 ```bash
 dart pub global activate arch_gen
 ```
 
-또는 `pubspec.yaml`에 다음을 추가하세요:
+Or add the following to your `pubspec.yaml`:
 
 ```yaml
 dev_dependencies:
   arch_gen: ^0.1.0
 ```
 
-## 사용법
+## Usage
 
 ```bash
-archgen <모델명>              # 필수: 모델 이름 (위치 인수)
-      -d, --dir <디렉토리>   # 선택: 기본 디렉토리 경로 (현재 버전에서는 항상 프로젝트 루트의 lib 폴더 사용)
-      -f, --flat             # 선택: 모든 파일을 한 폴더에 생성
-      --freezed, -z          # 선택: freezed 사용
-      --json, -j             # 선택: json_serializable 사용
-      -h, --help             # 도움말 표시
+archgen <model_name>           # Required: Model name (positional argument)
+      -d, --dir <directory>   # Optional: Base directory path (current version always uses the lib folder in project root)
+      -f, --flat              # Optional: Generate all files in a single folder
+      --freezed, -z           # Optional: Use freezed
+      --json, -j              # Optional: Use json_serializable
+      -h, --help              # Display help
 ```
 
-### 예시
+### Examples
 
-#### 기본 생성
+#### Basic Generation
 
 ```bash
 archgen User
 ```
 
-다음 파일 구조와 코드를 생성합니다:
+This generates the following file structure and code:
 
 ```
 lib/
@@ -88,11 +88,6 @@ lib/
     └── repository/
         ├── user_repository.dart
         └── user_repository_impl.dart
-```
-
-
-
-```dart
 // lib/data/data_source/user_data_source.dart
 abstract interface class UserDataSource {
 
@@ -143,13 +138,13 @@ class UserRepositoryImpl implements UserRepository {
 }
 ```
 
-#### Freezed 사용
+#### Using Freezed
 
 ```bash
 archgen User -z
 ```
 
-Model 클래스에만 freezed 템플릿을 적용합니다:
+This applies the freezed template only to the Model class:
 
 ```dart
 // lib/data/model/user.dart
@@ -165,13 +160,13 @@ abstract class User with _$User {
 }
 ```
 
-#### JSON Serializable 사용
+#### Using JSON Serializable
 
 ```bash
 archgen User -j
 ```
 
-DTO 클래스에만 json_serializable 템플릿을 적용합니다:
+This applies the json_serializable template only to the DTO class:
 
 ```dart
 // lib/data/dto/user_dto.dart
@@ -191,16 +186,14 @@ class UserDto {
 }
 ```
 
-#### 단일 디렉토리 구조
+#### Flat Directory Structure
 
 ```bash
 archgen User -f
 ```
 
-중첩된 폴더 대신 현재 디렉토리에 모든 파일을 생성합니다.
+This generates all files in the current directory instead of nested folders.
 
+## License
 
-
-## 라이센스
-
-이 프로젝트는 MIT 라이센스 하에 배포됩니다. 자세한 내용은 LICENSE 파일을 참조하세요.
+This project is distributed under the MIT License. See the LICENSE file for more details.
