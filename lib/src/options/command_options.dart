@@ -19,9 +19,8 @@ class CommandOptions {
     ]);
   }
 
-  /// 모든 옵션을 ArgParser에 추가합니다.
-  ArgParser createParser() {
-    final ArgParser parser = ArgParser();
+  /// ArgParser를 받아 모든 옵션을 ArgParser에 추가합니다.
+  ArgParser addAllToParser(ArgParser parser) {
     for (final option in options) {
       option.addToParser(parser);
     }

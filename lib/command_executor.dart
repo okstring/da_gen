@@ -1,23 +1,27 @@
 import 'dart:io';
 
+import 'package:arch_gen/src/file_system/file_generator.dart';
 import 'package:arch_gen/src/options/command_options.dart';
 import 'package:args/args.dart';
 
-import 'arch_gen.dart';
-
 class CommandExecutor {
-  final CommandOptions commandOptions;
-  final ArgParser argParser;
+  final CommandOptions _commandOptions;
+  final ArgParser _argParser;
+  final FileGenerator _fileGenerator;
 
-  const CommandExecutor({
-    required this.commandOptions,
-    required this.argParser,
-  });
+  CommandExecutor(
+      {CommandOptions? commandOptions,
+      ArgParser? argParser,
+      FileGenerator? fileGenerator})
+      : _commandOptions = commandOptions ?? CommandOptions.defaults(),
+        _argParser = argParser ?? ArgParser(),
+        _fileGenerator = fileGenerator ?? FileGenerator();
 
   void execute(List<String> arguments) {
     try {
+      _commandOptions.addAllToParser(_argParser);
       // 인수 파싱
-      final ArgResults args = argParser.parse(arguments);
+      final ArgResults args = _argParser.parse(arguments);
 
       // 도움말 표시
       _checkForHelpOption(args);
@@ -33,7 +37,7 @@ class CommandExecutor {
       final bool useJson = args['json'];
 
       // 파일 생성 실행
-      generateFiles(
+      _generateFiles(
         modelName: modelName,
         baseDir: dir,
         isFlat: isFlat,
@@ -44,7 +48,7 @@ class CommandExecutor {
       print('$modelName 모델 파일들이 성공적으로 생성되었습니다.');
     } on FormatException catch (e) {
       print('오류: ${e.message}');
-      _printUsage(argParser);
+      _printUsage(_argParser);
       exit(1);
     } catch (e) {
       print('오류가 발생했습니다: $e');
@@ -57,7 +61,7 @@ class CommandExecutor {
     final rest = args.rest;
     if (rest.isEmpty) {
       print('오류: 모델명을 지정해야 합니다.');
-      _printUsage(argParser);
+      _printUsage(_argParser);
       exit(1);
     }
     return rest;
@@ -66,7 +70,7 @@ class CommandExecutor {
   /// 도움말 표시
   void _checkForHelpOption(ArgResults args) {
     if (args['help']) {
-      _printUsage(argParser);
+      _printUsage(_argParser);
       exit(0);
     }
   }
@@ -76,5 +80,22 @@ class CommandExecutor {
     print('사용법: archgen <모델명> [옵션]');
     print('옵션:');
     print(argParser.usage);
+  }
+
+  /// 모델 관련 파일들을 생성합니다.
+  void _generateFiles({
+    required String modelName,
+    String baseDir = 'lib',
+    required bool isFlat,
+    required bool useFreezed,
+    required bool useJson,
+  }) {
+    _fileGenerator.generateFiles(
+      modelName: modelName,
+      baseDir: baseDir,
+      isFlat: isFlat,
+      useFreezed: useFreezed,
+      useJson: useJson,
+    );
   }
 }
