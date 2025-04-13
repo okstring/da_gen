@@ -4,6 +4,7 @@ import 'package:path/path.dart' as path;
 class PathCalculator {
   /// 상대 경로를 계산합니다.
   String calculateRelativeImportPath(String targetFile, String fromFile) {
+    // TODO: 안쓰는 파일들 제거
     // 대상 파일의 디렉토리와 현재 파일의 디렉토리
     String targetDir = path.dirname(targetFile);
     String fromDir = path.dirname(fromFile);

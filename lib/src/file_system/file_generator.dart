@@ -23,8 +23,7 @@ class FileGenerator {
     ProjectFinder? projectFinder,
     FileSystemManager? fileSystemManager,
     PathCalculator? pathCalculator,
-  }) :
-        _projectFinder = projectFinder ?? ProjectFinder(),
+  })  : _projectFinder = projectFinder ?? ProjectFinder(),
         _fileSystemManager = fileSystemManager ?? FileSystemManager(),
         _pathCalculator = pathCalculator ?? PathCalculator();
 
@@ -42,44 +41,23 @@ class FileGenerator {
 
     // 프로젝트 루트 디렉토리 찾기
     final String projectRoot = _projectFinder.findProjectRoot();
-    if (projectRoot.isEmpty) {
-      print('오류: 프로젝트 루트 디렉토리를 찾을 수 없습니다. pubspec.yaml 파일이 있는 디렉토리에서 실행하세요.');
-      exit(1);
-    }
-
-    print('프로젝트 루트 디렉토리: $projectRoot');
-
-    // 프로젝트 패키지명 추출
-    final String packageName = _projectFinder.getPackageName(projectRoot);
 
     // 파일 생성 경로 설정
-    String baseDirectory;
-    if (isFlat) {
-      // flat 옵션이 활성화된 경우 현재 디렉토리를 기준으로 함
-      baseDirectory = Directory.current.path;
-    } else {
-      // flat 옵션이 비활성화된 경우 프로젝트 루트의 lib 디렉토리를 기준으로 함
-      baseDirectory = path.join(projectRoot, 'lib');
-    }
-
+    String baseDirectory = _setBaseDirectoryPath(projectRoot, isFlat);
     print('파일 생성 기준 디렉토리: $baseDirectory');
 
     // 각 파일 타입별 경로 설정
     final String dataSourcePath = isFlat
         ? baseDirectory
         : path.join(baseDirectory, 'data', 'data_source');
-    final String dtoPath = isFlat
-        ? baseDirectory
-        : path.join(baseDirectory, 'data', 'dto');
-    final String mapperPath = isFlat
-        ? baseDirectory
-        : path.join(baseDirectory, 'data', 'mapper');
-    final String modelPath = isFlat
-        ? baseDirectory
-        : path.join(baseDirectory, 'data', 'model');
-    final String repositoryPath = isFlat
-        ? baseDirectory
-        : path.join(baseDirectory, 'data', 'repository');
+    final String dtoPath =
+        isFlat ? baseDirectory : path.join(baseDirectory, 'data', 'dto');
+    final String mapperPath =
+        isFlat ? baseDirectory : path.join(baseDirectory, 'data', 'mapper');
+    final String modelPath =
+        isFlat ? baseDirectory : path.join(baseDirectory, 'data', 'model');
+    final String repositoryPath =
+        isFlat ? baseDirectory : path.join(baseDirectory, 'data', 'repository');
 
     // 디렉토리 생성
     _fileSystemManager.createDirectoryIfNotExists(dataSourcePath);
@@ -89,13 +67,18 @@ class FileGenerator {
     _fileSystemManager.createDirectoryIfNotExists(repositoryPath);
 
     // 파일명 생성 (snake_case 사용)
-    final String dataSourceFile = path.join(dataSourcePath, '${snakeCaseModelName}_data_source.dart');
-    final String dataSourceImplFile = path.join(dataSourcePath, '${snakeCaseModelName}_data_source_impl.dart');
+    final String dataSourceFile =
+        path.join(dataSourcePath, '${snakeCaseModelName}_data_source.dart');
+    final String dataSourceImplFile = path.join(
+        dataSourcePath, '${snakeCaseModelName}_data_source_impl.dart');
     final String dtoFile = path.join(dtoPath, '${snakeCaseModelName}_dto.dart');
-    final String mapperFile = path.join(mapperPath, '${snakeCaseModelName}_mapper.dart');
+    final String mapperFile =
+        path.join(mapperPath, '${snakeCaseModelName}_mapper.dart');
     final String modelFile = path.join(modelPath, '$snakeCaseModelName.dart');
-    final String repositoryFile = path.join(repositoryPath, '${snakeCaseModelName}_repository.dart');
-    final String repositoryImplFile = path.join(repositoryPath, '${snakeCaseModelName}_repository_impl.dart');
+    final String repositoryFile =
+        path.join(repositoryPath, '${snakeCaseModelName}_repository.dart');
+    final String repositoryImplFile =
+        path.join(repositoryPath, '${snakeCaseModelName}_repository_impl.dart');
 
     // 타겟 파일들의 임포트 경로 계산
     Map<String, String> imports = _calculateImports(
@@ -138,31 +121,31 @@ class FileGenerator {
 
     // DataSourceImpl -> DataSource 임포트
     imports['dataSourceToImpl'] = _pathCalculator.calculateRelativeImportPath(
-        dataSourceFile,
-        dataSourceImplFile
-    );
+        dataSourceFile, dataSourceImplFile);
 
     // RepositoryImpl -> Repository, DataSource 임포트
     imports['repositoryToImpl'] = _pathCalculator.calculateRelativeImportPath(
-        repositoryFile,
-        repositoryImplFile
-    );
-    imports['dataSourceToRepoImpl'] = _pathCalculator.calculateRelativeImportPath(
-        dataSourceFile,
-        repositoryImplFile
-    );
+        repositoryFile, repositoryImplFile);
+    imports['dataSourceToRepoImpl'] = _pathCalculator
+        .calculateRelativeImportPath(dataSourceFile, repositoryImplFile);
 
     // Mapper -> Model, DTO 임포트
-    imports['modelToMapper'] = _pathCalculator.calculateRelativeImportPath(
-        modelFile,
-        mapperFile
-    );
-    imports['dtoToMapper'] = _pathCalculator.calculateRelativeImportPath(
-        dtoFile,
-        mapperFile
-    );
+    imports['modelToMapper'] =
+        _pathCalculator.calculateRelativeImportPath(modelFile, mapperFile);
+    imports['dtoToMapper'] =
+        _pathCalculator.calculateRelativeImportPath(dtoFile, mapperFile);
 
     return imports;
+  }
+
+  String _setBaseDirectoryPath(String projectRoot, bool isFlat) {
+    if (isFlat) {
+      // flat 옵션이 활성화된 경우 현재 디렉토리를 기준으로 함
+      return Directory.current.path;
+    } else {
+      // flat 옵션이 비활성화된 경우 프로젝트 루트의 lib 디렉토리를 기준으로 함
+      return path.join(projectRoot, 'lib');
+    }
   }
 
   // 모델 관련 파일들을 생성하는 메서드

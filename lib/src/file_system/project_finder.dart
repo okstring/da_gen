@@ -9,9 +9,10 @@ class ProjectFinder {
   String findProjectRoot() {
     Directory current = Directory.current;
 
-    // 최대 10번 상위 디렉토리까지 검색 (무한 루프 방지)
-    for (int i = 0; i < 10; i++) {
+    // 최대 20번 상위 디렉토리까지 검색
+    for (int i = 0; i < 20; i++) {
       if (File(path.join(current.path, 'pubspec.yaml')).existsSync()) {
+        print('프로젝트 루트 디렉토리: ${current.path}');
         return current.path;
       }
 
@@ -25,7 +26,8 @@ class ProjectFinder {
     }
 
     // 프로젝트 루트를 찾지 못한 경우
-    return '';
+    print('오류: 프로젝트 루트 디렉토리를 찾을 수 없습니다. pubspec.yaml 파일이 있는 디렉토리에서 실행하세요.');
+    exit(1);
   }
 
   /// 패키지명을 추출합니다.
