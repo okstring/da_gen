@@ -8,7 +8,6 @@ Generate folders and files for the Data layer of MVVM in Flutter/Dart applicatio
 
    - Creates DataSource, Repository, Model, DTO, and Mapper files
    - Sets up proper dependency relationships between components
-
 2. **Optional Support for freezed and json_serializable**
 
    - To use these features, you need to add the following package dependencies to your project:
@@ -18,22 +17,7 @@ Generate folders and files for the Data layer of MVVM in Flutter/Dart applicatio
      - [json_serializable](https://pub.dev/packages/json_serializable)
      - [json_annotation](https://pub.dev/packages/json_annotation)
      - [build_runner](https://pub.dev/packages/build_runner)
-
-   - Example of adding dependencies:
-
-     ```yaml
-     dependencies:
-       freezed_annotation: ^2.4.1
-       json_annotation: ^4.8.1
-     
-     dev_dependencies:
-       build_runner: ^2.4.7
-       freezed: ^2.4.6
-       json_serializable: ^6.7.1
-     ```
-
    - Code generation command: `dart run build_runner build`
-
    - For detailed usage, refer to the official documentation of each library:
 
      - freezed: https://pub.dev/packages/freezed
