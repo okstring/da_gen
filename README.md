@@ -1,10 +1,10 @@
-# arch_gen
+# da_gen
 
-Generate folders and files for the Data layer of Clean Architecture in Flutter/Dart applications with a single command.
+Generate folders and files for the Data layer of MVVM in Flutter/Dart applications with a single command.
 
 ## Key Features
 
-1. **Automatic Generation of Data Layer in Clean Architecture**
+1. **Automatic Generation of Data Layer in MVVM**
 
    - Creates DataSource, Repository, Model, DTO, and Mapper files
    - Sets up proper dependency relationships between components
@@ -42,20 +42,20 @@ Generate folders and files for the Data layer of Clean Architecture in Flutter/D
 ## Installation
 
 ```bash
-dart pub global activate arch_gen
+dart pub global activate da_gen
 ```
 
 Or add the following to your `pubspec.yaml`:
 
 ```yaml
 dev_dependencies:
-  arch_gen: ^0.1.0
+  da_gen: ^0.1.0
 ```
 
 ## Usage
 
 ```bash
-archgen <model_name>           # Required: Model name (positional argument)
+dagen <model_name>           # Required: Model name (positional argument)
       -d, --dir <directory>   # Optional: Base directory path (current version always uses the lib folder in project root)
       -f, --flat              # Optional: Generate all files in a single folder
       --freezed, -z           # Optional: Use freezed
@@ -68,7 +68,7 @@ archgen <model_name>           # Required: Model name (positional argument)
 #### Basic Generation
 
 ```bash
-archgen User
+dagen User
 ```
 
 This generates the following file structure and code:
@@ -141,7 +141,7 @@ class UserRepositoryImpl implements UserRepository {
 #### Using Freezed
 
 ```bash
-archgen User -z
+dagen User -z
 ```
 
 This applies the freezed template only to the Model class:
@@ -163,7 +163,7 @@ abstract class User with _$User {
 #### Using JSON Serializable
 
 ```bash
-archgen User -j
+dagen User -j
 ```
 
 This applies the json_serializable template only to the DTO class:
@@ -189,7 +189,7 @@ class UserDto {
 #### Flat Directory Structure
 
 ```bash
-archgen User -f
+dagen User -f
 ```
 
 This generates all files in the current directory instead of nested folders.

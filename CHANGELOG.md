@@ -1,5 +1,5 @@
 ## 0.1.0
 
 - Initial release
-- Auto-generate Data layer files for Clean Architecture
+- Auto-generate Data layer files for MVVM
 - Support for freezed and json_serializable

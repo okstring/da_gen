@@ -1,8 +1,8 @@
-name: arch_gen
-description: This is a Dart CLI tool that automatically generates files for the Data layer in a Clean Architecture structure.
+name: da_gen
+description: This is a Dart CLI tool that automatically generates files for the Data layer in a MVVM structure.
 version: 0.1.0
-homepage: https://github.com/okstring/arch_gen
-repository: https://github.com/okstring/arch_gen
+homepage: https://github.com/okstring/da_gen
+repository: https://github.com/okstring/da_gen
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
@@ -16,4 +16,4 @@ dev_dependencies:
   test: ^1.24.0
 
 executables:
-  archgen: archgen
+  dagen: dagen
