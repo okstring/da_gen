@@ -29,7 +29,7 @@ Or add the following to your `pubspec.yaml`:
 
 ```yaml
 dev_dependencies:
-  da_gen: ^0.1.0
+  da_gen: ^0.1.3
 ```
 
 ## Environment Variable Setup

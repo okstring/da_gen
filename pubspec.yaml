@@ -1,11 +1,15 @@
 name: da_gen
 description: This is a Dart CLI tool that automatically generates files for the Data layer in a MVVM structure.
-version: 0.1.2
+version: 0.1.3
 homepage: https://github.com/okstring/da_gen
 repository: https://github.com/okstring/da_gen
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
+
+platforms:
+  windows:
+  macos:
 
 dependencies:
   args: ^2.7.0
