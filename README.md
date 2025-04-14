@@ -5,7 +5,6 @@ Generate folders and files for the Data layer of MVVM in Flutter/Dart applicatio
 ## Key Features
 
 1. **Automatic Generation of Data Layer in MVVM**
-
    - Creates DataSource, Repository, Model, DTO, and Mapper files
    - Sets up proper dependency relationships between components
 2. **Optional Support for freezed and json_serializable**
@@ -128,7 +127,7 @@ class UserRepositoryImpl implements UserRepository {
 dagen User -z
 ```
 
-This applies the freezed template only to the Model class:
+This applies the freezed template to the Model class:
 
 ```dart
 // lib/data/model/user.dart
@@ -150,7 +149,7 @@ abstract class User with _$User {
 dagen User -j
 ```
 
-This applies the json_serializable template only to the DTO class:
+This applies the json_serializable template to the DTO class:
 
 ```dart
 // lib/data/dto/user_dto.dart
