@@ -8,9 +8,7 @@ Generate folders and files for the Data layer of MVVM in Flutter/Dart applicatio
    - Creates DataSource, Repository, Model, DTO, and Mapper files
    - Sets up proper dependency relationships between components
 2. **Optional Support for freezed and json_serializable**
-
    - To use these features, you need to add the following package dependencies to your project:
-
      - [freezed](https://pub.dev/packages/freezed)
      - [freezed_annotation](https://pub.dev/packages/freezed_annotation)
      - [json_serializable](https://pub.dev/packages/json_serializable)
@@ -18,7 +16,6 @@ Generate folders and files for the Data layer of MVVM in Flutter/Dart applicatio
      - [build_runner](https://pub.dev/packages/build_runner)
    - Code generation command: `dart run build_runner build`
    - For detailed usage, refer to the official documentation of each library:
-
      - freezed: https://pub.dev/packages/freezed
      - json_serializable: https://pub.dev/packages/json_serializable
 
@@ -33,6 +30,48 @@ Or add the following to your `pubspec.yaml`:
 ```yaml
 dev_dependencies:
   da_gen: ^0.1.0
+```
+
+## Environment Variable Setup
+
+To run globally installed Dart packages from anywhere, you need to add Dart's global package execution path to your system's environment variables.
+
+### Windows
+
+1. Search for "Environment Variables" in the Start menu and click on "Edit the system environment variables"
+
+2. Click the "Environment Variables" button
+
+3. In the "User variables" section, select the `Path` variable and click "Edit"
+
+4. Click "New" and add the following path:
+
+   ```
+   %LOCALAPPDATA%\Pub\Cache\bin
+   ```
+
+5. Click "OK" to save
+
+### macOS/Linux
+
+Run the following command in your terminal to add the path to your `~/.bashrc`, `~/.zshrc`, or appropriate shell profile file:
+
+```bash
+# For bash
+echo 'export PATH="$PATH":"$HOME/.pub-cache/bin"' >> ~/.bashrc
+source ~/.bashrc
+
+# For zsh
+echo 'export PATH="$PATH":"$HOME/.pub-cache/bin"' >> ~/.zshrc
+source ~/.zshrc
+```
+
+### Verify Installation
+
+After setting up environment variables, run the following command to verify that the `dagen` command works properly:
+
+```bash
+dagen -h
 ```
 
 ## Usage
