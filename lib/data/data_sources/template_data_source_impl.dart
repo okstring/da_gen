@@ -1,5 +1,5 @@
 import 'package:da_gen/data/data_sources/template_data_source.dart';
-import 'package:da_gen/data/utils/string_utils.dart';
+import 'package:da_gen/utils/string_utils.dart';
 
 /// 템플릿 생성 구현체
 class TemplateDataSourceImpl implements TemplateDataSource {
