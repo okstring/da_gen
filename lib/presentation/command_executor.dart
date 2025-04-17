@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:da_gen/domain/repositories/command_repository.dart';
-import 'package:da_gen/domain/repositories/file_generator_repository.dart';
+import 'package:da_gen/data/repositories/command_repository.dart';
+import 'package:da_gen/data/repositories/file_generator_repository.dart';
 
 /// 명령어 실행을 담당하는 클래스
 class CommandExecutor {

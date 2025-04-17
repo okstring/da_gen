@@ -1,10 +1,10 @@
-import 'package:da_gen/domain/model/da_gen_file_type.dart';
-import 'package:da_gen/domain/model/file_info.dart';
-import 'package:da_gen/domain/repositories/file_generator_repository.dart';
-import 'package:da_gen/domain/repositories/file_path_repository.dart';
-import 'package:da_gen/domain/repositories/file_system_repository.dart';
-import 'package:da_gen/domain/repositories/project_repository.dart';
-import 'package:da_gen/domain/repositories/template_repository.dart';
+import 'package:da_gen/data/model/da_gen_file_type.dart';
+import 'package:da_gen/data/model/file_info.dart';
+import 'package:da_gen/data/repositories/file_generator_repository.dart';
+import 'package:da_gen/data/repositories/file_path_repository.dart';
+import 'package:da_gen/data/repositories/file_system_repository.dart';
+import 'package:da_gen/data/repositories/project_repository.dart';
+import 'package:da_gen/data/repositories/template_repository.dart';
 
 /// 파일 생성 리포지토리 구현체
 class FileGeneratorRepositoryImpl implements FileGeneratorRepository {

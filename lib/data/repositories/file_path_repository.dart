@@ -1,5 +1,6 @@
-import 'package:da_gen/domain/model/da_gen_file_type.dart';
-import 'package:da_gen/domain/model/file_info.dart';
+
+import 'package:da_gen/data/model/da_gen_file_type.dart';
+import 'package:da_gen/data/model/file_info.dart';
 
 /// 파일 경로 관리를 담당하는 리포지토리 인터페이스
 abstract interface class FilePathRepository {

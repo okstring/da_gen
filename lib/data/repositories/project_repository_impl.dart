@@ -1,5 +1,5 @@
 import 'package:da_gen/data/data_sources/project_data_source.dart';
-import 'package:da_gen/domain/repositories/project_repository.dart';
+import 'package:da_gen/data/repositories/project_repository.dart';
 
 /// 프로젝트 리포지토리 구현체
 class ProjectRepositoryImpl implements ProjectRepository {

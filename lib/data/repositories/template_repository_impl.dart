@@ -1,5 +1,5 @@
 import 'package:da_gen/data/data_sources/template_data_source.dart';
-import 'package:da_gen/domain/repositories/template_repository.dart';
+import 'package:da_gen/data/repositories/template_repository.dart';
 
 /// 템플릿 리포지토리 구현체
 class TemplateRepositoryImpl implements TemplateRepository {

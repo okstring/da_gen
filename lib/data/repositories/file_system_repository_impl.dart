@@ -1,5 +1,5 @@
 import 'package:da_gen/data/data_sources/file_system_data_source.dart';
-import 'package:da_gen/domain/repositories/file_system_repository.dart';
+import 'package:da_gen/data/repositories/file_system_repository.dart';
 
 /// 파일 시스템 리포지토리 구현체
 class FileSystemRepositoryImpl implements FileSystemRepository {

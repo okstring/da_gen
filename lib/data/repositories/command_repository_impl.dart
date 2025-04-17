@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:da_gen/data/data_sources/command_data_source.dart';
-import 'package:da_gen/domain/model/command_option.dart';
-import 'package:da_gen/domain/repositories/command_repository.dart';
+import 'package:da_gen/data/model/command_option.dart';
+import 'package:da_gen/data/repositories/command_repository.dart';
 import 'package:args/args.dart';
 
 /// 명령어 리포지토리 구현체

@@ -8,12 +8,12 @@ import 'package:da_gen/data/repositories/file_path_repository_impl.dart';
 import 'package:da_gen/data/repositories/file_system_repository_impl.dart';
 import 'package:da_gen/data/repositories/project_repository_impl.dart';
 import 'package:da_gen/data/repositories/template_repository_impl.dart';
-import 'package:da_gen/domain/repositories/command_repository.dart';
-import 'package:da_gen/domain/repositories/file_generator_repository.dart';
-import 'package:da_gen/domain/repositories/file_path_repository.dart';
-import 'package:da_gen/domain/repositories/file_system_repository.dart';
-import 'package:da_gen/domain/repositories/project_repository.dart';
-import 'package:da_gen/domain/repositories/template_repository.dart';
+import 'package:da_gen/data/repositories/command_repository.dart';
+import 'package:da_gen/data/repositories/file_generator_repository.dart';
+import 'package:da_gen/data/repositories/file_path_repository.dart';
+import 'package:da_gen/data/repositories/file_system_repository.dart';
+import 'package:da_gen/data/repositories/project_repository.dart';
+import 'package:da_gen/data/repositories/template_repository.dart';
 import 'package:da_gen/presentation/command_executor.dart';
 import 'package:da_gen/presentation/command_options.dart';
 

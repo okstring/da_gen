@@ -1,4 +1,4 @@
-import 'package:da_gen/di/dependency_injector.dart';
+import 'package:da_gen/core/di/dependency_injector.dart';
 import 'package:da_gen/presentation/command_executor.dart';
 
 /// CLI 도구의 메인 함수입니다.

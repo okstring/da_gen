@@ -1,4 +1,4 @@
-import 'package:da_gen/domain/model/command_option.dart';
+import 'package:da_gen/data/model/command_option.dart';
 
 /// 명령어 옵션 제공자 클래스
 class CommandOptions {
