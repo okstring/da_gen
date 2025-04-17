@@ -1,0 +1,15 @@
+.dart_tool/
+pubspec.lock
+
+# 기타 에디터/툴 설정 파일
+*.iml
+*.log
+*.tmp
+*.swp
+*.DS_Store
+*.class
+*.lock
+
+# 환경 파일
+.env
+.env.*
