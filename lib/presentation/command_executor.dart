@@ -44,9 +44,9 @@ class CommandExecutor {
         useJson: useJson,
       );
 
-      print('$modelName 모델 파일들이 성공적으로 생성되었습니다.');
+      print('$modelName model files have been successfully generated.');
     } catch (e) {
-      print('오류가 발생했습니다: $e');
+      print('An error occurred: $e');
       exit(1);
     }
   }

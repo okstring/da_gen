@@ -32,7 +32,7 @@ class DirOption extends CommandOption {
       : this(
             name: 'dir',
             abbr: 'd',
-            help: '기본 디렉토리 경로 (현재 버전에서는 항상 프로젝트 루트의 lib 폴더 사용)',
+            help: 'Base directory path (current version always uses the lib folder in project root)',
             defaultsTo: 'lib');
 
   @override
@@ -66,23 +66,23 @@ class FlagOption extends CommandOption {
   /// flat 옵션을 위한 팩토리 생성자
   FlagOption.flat()
       : this(
-            name: 'flat', abbr: 'f', help: '모든 파일을 한 폴더에 생성', negatable: false);
+            name: 'flat', abbr: 'f', help: 'Generate all files in the current directory', negatable: false);
 
   /// freezed 옵션을 위한 팩토리 생성자
   FlagOption.freezed()
-      : this(name: 'freezed', abbr: 'z', help: 'freezed 사용', negatable: false);
+      : this(name: 'freezed', abbr: 'z', help: 'Use freezed', negatable: false);
 
   /// json 옵션을 위한 팩토리 생성자
   FlagOption.json()
       : this(
             name: 'json',
             abbr: 'j',
-            help: 'json_serializable 사용',
+            help: 'Use json_serializable',
             negatable: false);
 
   /// help 옵션을 위한 팩토리 생성자
   FlagOption.help()
-      : this(name: 'help', abbr: 'h', help: '도움말 표시', negatable: false);
+      : this(name: 'help', abbr: 'h', help: 'Display help', negatable: false);
 
   @override
   void addToParser(ArgParser parser) {

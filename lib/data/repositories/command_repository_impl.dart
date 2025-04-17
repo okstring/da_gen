@@ -21,7 +21,7 @@ class CommandRepositoryImpl implements CommandRepository {
     try {
       return _dataSource.parseArguments(arguments, _parser);
     } on FormatException catch (e) {
-      print('오류: ${e.message}');
+      print('Error: ${e.message}');
       printUsage();
       exit(1);
     }
@@ -31,7 +31,7 @@ class CommandRepositoryImpl implements CommandRepository {
   @override
   String validateModelName(List<String> rest) {
     if (rest.isEmpty) {
-      print('오류: 모델명을 지정해야 합니다.');
+      print('Error: Model name must be specified.');
       printUsage();
       exit(1);
     }

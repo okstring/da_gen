@@ -18,8 +18,8 @@ class CommandDataSourceImpl implements CommandDataSource {
   /// 사용법을 출력합니다.
   @override
   void printUsage(ArgParser parser) {
-    print('사용법: dagen <모델명> [옵션]');
-    print('옵션:');
+    print('Usage: dagen <model_name> [options]');
+    print('Options:');
     print(parser.usage);
   }
 }
