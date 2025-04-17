@@ -1,0 +1,36 @@
+name: Publish to pub.dev
+
+
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+*'
+
+jobs:
+  publishing:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout 코드
+        uses: actions/checkout@v3
+      
+      - name: Dart 설정
+        uses: dart-lang/setup-dart@v1
+        with:
+          sdk: 'stable'
+      
+      - name: 의존성 설치
+        run: dart pub get
+      
+      - name: 코드 분석
+        run: dart analyze
+      
+      - name: 테스트 실행
+        run: dart test
+      
+      - name: pub.dev에 패키지 배포
+        uses: k-paxian/dart-package-publisher@master
+        with:
+          skip_test: true
+          accessToken: ${{ secrets.PUB_DEV_ACCESS_TOKEN }}
+          refreshToken: ${{ secrets.PUB_DEV_REFRESH_TOKEN }}

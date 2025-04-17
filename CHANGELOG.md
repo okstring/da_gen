@@ -1,3 +1,7 @@
+## 0.1.4
+
+- Translated all instructional print messages to English.
+
 ## 0.1.3
 
 - Added platform restrictions: supporting only macOS and Windows
