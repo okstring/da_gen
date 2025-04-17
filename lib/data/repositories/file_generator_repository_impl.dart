@@ -44,7 +44,8 @@ class FileGeneratorRepositoryImpl implements FileGeneratorRepository {
     );
 
     // 필요한 모든 디렉토리들 선언
-    final Set<String> directories = fileInfos.map((e) => e.directoryPath).toSet();
+    final Set<String> directories =
+        fileInfos.map((e) => e.directoryPath).toSet();
 
     // 디렉토리 없으면 생성
     for (var directoryPath in directories) {
@@ -52,9 +53,10 @@ class FileGeneratorRepositoryImpl implements FileGeneratorRepository {
     }
 
     // 파일 유형별 경로 맵 생성
-    final Map<DaGenFileType, String> typeToPathMap = {
-      for (var fileInfo in fileInfos) fileInfo.type: fileInfo.filePath
-    };
+    final Map<DaGenFileType, String> typeToPathMap = {};
+    for (var fileInfo in fileInfos) {
+      typeToPathMap[fileInfo.type] = fileInfo.filePath;
+    }
 
     // 각 파일 생성
     for (final fileInfo in fileInfos) {

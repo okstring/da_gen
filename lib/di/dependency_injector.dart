@@ -28,9 +28,12 @@ class DependencyInjector {
     final commandDataSource = CommandDataSourceImpl();
 
     // Repositories
-    final FileSystemRepository fileSystemRepository = FileSystemRepositoryImpl(fileSystemDataSource);
-    final ProjectRepository projectRepository = ProjectRepositoryImpl(projectDataSource);
-    final TemplateRepository templateRepository = TemplateRepositoryImpl(templateDataSource);
+    final FileSystemRepository fileSystemRepository =
+        FileSystemRepositoryImpl(fileSystemDataSource);
+    final ProjectRepository projectRepository =
+        ProjectRepositoryImpl(projectDataSource);
+    final TemplateRepository templateRepository =
+        TemplateRepositoryImpl(templateDataSource);
     final FilePathRepository filePathRepository = FilePathRepositoryImpl();
     final CommandRepository commandRepository = CommandRepositoryImpl(
       commandDataSource,
@@ -38,7 +41,8 @@ class DependencyInjector {
     );
 
     // FileGeneratorRepository
-    final FileGeneratorRepository fileGeneratorRepository = FileGeneratorRepositoryImpl(
+    final FileGeneratorRepository fileGeneratorRepository =
+        FileGeneratorRepositoryImpl(
       projectRepository: projectRepository,
       filePathRepository: filePathRepository,
       fileSystemRepository: fileSystemRepository,
