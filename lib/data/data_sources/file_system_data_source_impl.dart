@@ -18,6 +18,6 @@ class FileSystemDataSourceImpl implements FileSystemDataSource {
   void createFile({required String path, required String content}) {
     final File file = File(path);
     file.writeAsStringSync(content);
-    print('생성됨: $path');
+    print('Created: $path');
   }
 }

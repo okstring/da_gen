@@ -13,7 +13,7 @@ class ProjectDataSourceImpl implements ProjectDataSource {
     // 최대 20번 상위 디렉토리까지 검색
     for (int i = 0; i < 20; i++) {
       if (File(path.join(current.path, 'pubspec.yaml')).existsSync()) {
-        print('프로젝트 루트 디렉토리: ${current.path}');
+        print('Project root directory: ${current.path}');
         return current.path;
       }
 
@@ -27,7 +27,7 @@ class ProjectDataSourceImpl implements ProjectDataSource {
     }
 
     // 프로젝트 루트를 찾지 못한 경우
-    print('오류: 프로젝트 루트 디렉토리를 찾을 수 없습니다. pubspec.yaml 파일이 있는 디렉토리에서 실행하세요.');
+    print('Error: Could not find project root directory. Please run from a directory containing pubspec.yaml file.');
     exit(1);
   }
 
@@ -39,7 +39,7 @@ class ProjectDataSourceImpl implements ProjectDataSource {
       final File pubspecFile = File(path.join(projectRoot, 'pubspec.yaml'));
 
       if (!pubspecFile.existsSync()) {
-        print('경고: pubspec.yaml 파일을 찾을 수 없습니다.');
+        print('Warning: pubspec.yaml file not found.');
         return 'app'; // 기본값
       }
 
@@ -48,10 +48,10 @@ class ProjectDataSourceImpl implements ProjectDataSource {
       final Match? match = nameRegex.firstMatch(content);
 
       final String packageName = match != null ? match.group(1)! : 'app';
-      print('패키지명: $packageName');
+      print('Package name: $packageName');
       return packageName;
     } catch (e) {
-      print('경고: 패키지명을 추출하는 중 오류가 발생했습니다: $e');
+      print('Warning: Error occurred while extracting package name: $e');
       return 'app'; // 오류 발생 시 기본값
     }
   }
