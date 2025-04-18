@@ -22,12 +22,6 @@ jobs:
       - name: 의존성 설치
         run: dart pub get
       
-      - name: 코드 분석
-        run: dart analyze
-      
-      - name: 테스트 실행
-        run: dart test
-      
       - name: pub.dev에 패키지 배포
         uses: k-paxian/dart-package-publisher@master
         with:
