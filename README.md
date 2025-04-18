@@ -29,7 +29,7 @@ Or add the following to your `pubspec.yaml`:
 
 ```yaml
 dev_dependencies:
-  da_gen: ^0.1.4
+  da_gen: ^0.1.5
 ```
 
 ## Environment Variable Setup
@@ -219,4 +219,3 @@ This generates all files in the current directory instead of nested folders.
 ## License
 
 This project is distributed under the MIT License. See the LICENSE file for more details.
->>>>>>> develop
